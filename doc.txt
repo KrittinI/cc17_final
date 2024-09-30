@@ -1,0 +1,19 @@
+/user
+--- REGISTER
+/user/register
+POST
+
+BODY
+    {
+    email:
+    password:
+    confirmPassword
+    firstName
+    lastName
+    phone
+    }
+RESPONSE
+    201 {id email firstName lastName phone}
+    400 message
+    500 message
+

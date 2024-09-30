@@ -1,0 +1,25 @@
+{
+  "name": "assessment-1",
+  "version": "1.0.0",
+  "description": "- [ ] เขียน Model โดยใช้ Prisma ตาม ER Diagram ของ Expense Tracker Application ที่ออกแบบไว้ก่อนหน้า\r - [ ] เขียน Express Application ที่สามารถเรียกใช้งาน API ตาม API Endpoint ที่ออกแบบไว้ก่อนหน้า\r   - [ ] เขียน Express สำหรับ Handle HTTP Request\r   - [ ] แบ่ง Route ตาม API Endpoint ที่ออกแบบไว้ก่อนหน้า\r   - [ ] Using appropriate Middleware\r - ใช้ Prisma จัดการในแต่ละ Controller\r - [ ] implement ในกรณีที่เรียก API สำเร็จ (Status 2xx) และไม่สำเร็จ (Status 4xx,5xx)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "prisma": "^5.14.0"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.14.0",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0"
+  }
+}

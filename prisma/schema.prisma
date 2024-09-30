@@ -1,0 +1,63 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  email     String    @unique @db.VarChar(50)
+  password  String    @db.VarChar(255)
+  firstName String?   @map("first_name") @db.VarChar(50)
+  lastName  String?   @map("last_name") @db.VarChar(50)
+  phone     String    @unique @db.VarChar(10)
+  Account   Account[]
+}
+
+enum ACCOUNT_TYPE {
+  SAVINGS
+  FIXED
+  CURRENT
+}
+
+model Account {
+  id          Int          @id @default(autoincrement())
+  userId      Int?         @map("user_id")
+  accountType ACCOUNT_TYPE @map("account_type")
+  accountName String       @unique @map("account_name") @db.VarChar(100)
+  amount      Decimal      @default(0) @db.Decimal(10, 2)
+  isActive    Boolean      @default(true) @map("is_active")
+
+  users    User?         @relation(fields: [userId], references: [id])
+  receiver transaction[] @relation(name: "receiver")
+  sender   transaction[] @relation(name: "sender")
+}
+
+enum TRANSACTION_TYPE {
+  EXPENSES
+  INCOME
+  TRANSFER
+}
+
+model transaction {
+  id              Int              @id @default(autoincrement())
+  receiverId      Int?             @map("receiver_id")
+  senderId        Int?             @map("sendert_id")
+  transactionType TRANSACTION_TYPE @map("transaction_type")
+  amount          Decimal          @db.Decimal(10, 2)
+  payeeName       String?          @map("payee_name") @db.VarChar(50)
+  note            String?          @db.VarChar(100)
+  transactionDate DateTime         @default(now()) @map("transaction_date")
+
+  receiver Account? @relation(name: "receiver", fields: [receiverId], references: [id])
+  sender   Account? @relation(name: "sender", fields: [senderId], references: [id])
+}
